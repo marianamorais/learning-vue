@@ -1,7 +1,6 @@
 <template>
   <div :class="{'client': !isPremium, 'client-premium': isPremium}"> 
     <h2>Client info</h2>
-    <hr>
     <p>Description: {{ client.description }}</p>
     <p>Name: {{ client.name }}</p>
     <p v-if="showAge === true">Age: {{ client.age }}</p>
