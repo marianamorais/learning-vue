@@ -67,18 +67,29 @@ export default {
   },
   methods: {
     register() {
-      const newClient = {
-        id: this.clientId = "",
-        name: this.clientName = "",
-        description: this.clientDescription = "",
-        email: this.clientEmail = "",
-        phone: this.clientPhone = "",
-        age: this.clientAge = ""
-      }
-      this.clients.push(newClient)
+      this.clients.push(
+        {
+          id: this.clientId,
+          name: this.clientName,
+          description: this.clientDescription,
+          email: this.clientEmail,
+          phone: this.clientPhone,
+          age: this.clientAge
+        }
+      )
+      this.cleanInputs()
+    },
+    cleanInputs() {
+      this.clientId = ""
+      this.clientName = ""
+      this.clientDescription = ""
+      this.clientEmail = ""
+      this.clientPhone = ""
+      this.clientAge = ""
     }
   }
 }
+
 </script>
 
 <style>
