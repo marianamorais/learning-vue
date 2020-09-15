@@ -10,6 +10,9 @@
       <input type="text" placeholder="Phone" v-model="clientPhone">
       <input type="number" placeholder="Age" v-model="clientAge">
     </div>
+
+    <p v-if="errorInput" class="errorInput">O nome é inválido, tente novamente!</p>
+
     <button @click="register">Register</button>
 
     <div v-for="client in clients" :key="client.id">
@@ -27,6 +30,7 @@ export default {
   name: 'App',
   data() {
     return {
+      errorInput: false,
       clientId: Date.now(),
       clientName: null,
       clientDescription: null,
@@ -67,7 +71,14 @@ export default {
   },
   methods: {
     register() {
-      this.clients.push(
+      if(this.clientName == "" || this.clientName.length < 3){
+        
+        this.errorInput = true;
+
+        console.log("Erro de validação");
+      } else {
+        
+        this.clients.push(
         {
           id: this.clientId,
           name: this.clientName,
@@ -75,9 +86,12 @@ export default {
           email: this.clientEmail,
           phone: this.clientPhone,
           age: this.clientAge
+          
         }
       )
-      this.cleanInputs()
+        this.cleanInputs()
+        this.errorInput = false;
+      }
     },
     cleanInputs() {
       this.clientId = ""
@@ -99,4 +113,9 @@ export default {
     width: 400px;
     margin-bottom: 15px;
   }
+
+  .errorInput {
+    color: red;
+  }
+
 </style>
