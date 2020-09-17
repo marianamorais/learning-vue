@@ -7,6 +7,7 @@
     <p>Email: {{ client.email }}</p>
     <p>Phone: {{ client.phone }}</p>
     <button @click="changeColor">Change color</button>
+    <button @click=" deleteCard">Delete</button>
   </div>
 </template>
 
@@ -21,6 +22,9 @@ export default {
   methods: {
     changeColor: function() {
       this.isPremium = !this.isPremium;
+    },
+    deleteCard: function() {
+      this.$emit("delete");
     }
   },
 

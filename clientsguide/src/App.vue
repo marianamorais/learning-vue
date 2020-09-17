@@ -16,7 +16,7 @@
     <button @click="register">Register</button>
 
     <div v-for="client in clients" :key="client.id">
-      <Client :client="client" />
+      <Client :client="client" @delete="deleteClient"/>
     </div>
 
     
@@ -100,6 +100,9 @@ export default {
       this.clientEmail = ""
       this.clientPhone = ""
       this.clientAge = ""
+    },
+    deleteClient: function() {
+
     }
   }
 }
