@@ -1,22 +1,23 @@
 <template>
   <div id="app">
-    <h3>Register</h3>
+    <h3 class="title navbar-brand" >Register</h3>
 
     <div class="inputs">
-      <input type="number" placeholder="Id" v-model="clientId">
-      <input type="text" placeholder="Name" v-model="clientName">
-      <input type="text" placeholder="Description" v-model="clientDescription">
-      <input type="text" placeholder="Email" v-model="clientEmail">
-      <input type="text" placeholder="Phone" v-model="clientPhone">
-      <input type="number" placeholder="Age" v-model="clientAge">
+      <input type="number" placeholder="Id" class="input" v-model="clientId">
+      <input type="text" placeholder="Name" class="input" v-model="clientName">
+      <input type="text" placeholder="Description" class="input" v-model="clientDescription">
+      <input type="text" placeholder="Email" class="input" v-model="clientEmail">
+      <input type="text" placeholder="Phone" class="input" v-model="clientPhone">
+      <input type="number" placeholder="Age" class="input" v-model="clientAge">
     </div>
 
     <p v-if="errorInput" class="errorInput">O nome é inválido, tente novamente!</p>
 
-    <button @click="register">Register</button>
+    <button @click="register" class="button">Register</button>
 
-    <div v-for="client in clients" :key="client.id">
-      <Client :client="client" @delete="deleteClient"/>
+    <div v-for="(client,index) in orderClients" :key="client.id">
+      <h4>{{ index + 1 }}</h4>
+      <Client :client="client" @delete="deleteClient($event)"/>
     </div>
 
     
@@ -24,6 +25,8 @@
 </template>
 
 <script>
+import _ from 'lodash';
+
 import Client from './components/Clients';
 
 export default {
@@ -101,10 +104,18 @@ export default {
       this.clientPhone = ""
       this.clientAge = ""
     },
-    deleteClient: function() {
-
+    deleteClient: function($event) {
+      var id = $event.idClient;
+      var newArray = this.clients.filter(client => client.id != id);
+      this.clients = newArray;
     }
-  }
+  },
+
+  computed: {
+    orderClients: function() {
+      return _.orderBy(this.clients,['name'], ['asc']);
+    }
+  },
 }
 
 </script>

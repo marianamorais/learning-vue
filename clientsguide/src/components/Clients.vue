@@ -1,13 +1,16 @@
 <template>
-  <div :class="{'client': !isPremium, 'client-premium': isPremium}"> 
-    <h2>Client info</h2>
-    <p>Description: {{ client.description }}</p>
-    <p>Name: {{ client.name }}</p>
-    <p v-if="showAge === true">Age: {{ client.age }}</p>
-    <p>Email: {{ client.email }}</p>
-    <p>Phone: {{ client.phone }}</p>
-    <button @click="changeColor">Change color</button>
-    <button @click=" deleteCard">Delete</button>
+  <div :class="{'client': !isPremium, 'client-premium': isPremium}" class="card"> 
+    <h2 class="card-header-title">Client info</h2>
+    <div class="content">
+      <p>Description: {{ client.description }}</p>
+      <p>Name: {{ client.name }}</p>
+      <p v-if="showAge === true">Age: {{ client.age }}</p>
+      <p>Email: {{ client.email.toUpperCase() }}</p>
+      <p>Phone: {{ client.phone }}</p>
+      <p>Especial Id: {{ EspeialId }}</p>
+      <button @click="changeColor" class="button is-light">Change color</button>
+      <button @click="deleteCard" class="button is-light">Delete</button>
+    </div>
   </div>
 </template>
 
@@ -24,7 +27,14 @@ export default {
       this.isPremium = !this.isPremium;
     },
     deleteCard: function() {
-      this.$emit("delete");
+      console.log("Emitindo do filho!")
+      this.$emit("delete", {idClient: this.client.id, component: this});
+    },
+  },
+
+  computed: {
+    EspecialId: function() {
+      return (this.client.email + this.client.name + this.client.id).toUpperCase();
     }
   },
 
